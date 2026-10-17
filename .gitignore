@@ -10,3 +10,7 @@
 product-service-local
 *.log
 .DS_Store
+
+# Python bytecode (generated, not source)
+__pycache__/
+*.pyc

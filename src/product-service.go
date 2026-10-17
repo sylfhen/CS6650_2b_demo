@@ -241,7 +241,7 @@ func (h *handler) addProductDetails(c *gin.Context) {
 
 func newRouter(store *ProductStore, faults bool) *gin.Engine {
 	r := gin.New()
-	r.Use(gin.Logger())
+	r.Use(observability(newJSONLogger(), os.Getenv("LOG_REQUESTS") != "false"))
 	r.Use(gin.CustomRecovery(recoverInternal))
 	r.Use(faultInjection(faults))
 
@@ -255,6 +255,7 @@ func newRouter(store *ProductStore, faults bool) *gin.Engine {
 	r.GET("/health", func(c *gin.Context) {
 		c.JSON(http.StatusOK, gin.H{"status": "ok"})
 	})
+	r.GET(metricsPath, metricsHandler())
 	return r
 }
 

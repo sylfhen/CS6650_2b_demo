@@ -1,0 +1,17 @@
+== Idle (14:10-14:15): every line ==
+(no lines: no requests reached the app in this window, so no logs were written)
+
+== Loaded (14:20:30, peak of the Locust run): first 8 lines of one second ==
+{"time":"2026-10-17T21:20:30.000504843Z","level":"INFO","msg":"request","method":"GET","route":"/products/:productId","path":"/products/127","status":200,"duration_ms":0.01,"bytes":121,"client_ip":"192.168.65.1"}
+{"time":"2026-10-17T21:20:30.000518718Z","level":"INFO","msg":"request","method":"GET","route":"/products/:productId","path":"/products/220","status":200,"duration_ms":0.006,"bytes":119,"client_ip":"192.168.65.1"}
+{"time":"2026-10-17T21:20:30.000547177Z","level":"INFO","msg":"request","method":"GET","route":"/products/:productId","path":"/products/587314","status":404,"duration_ms":0.006,"bytes":89,"client_ip":"192.168.65.1"}
+{"time":"2026-10-17T21:20:30.000855885Z","level":"INFO","msg":"request","method":"GET","route":"/products/:productId","path":"/products/474","status":200,"duration_ms":0.017,"bytes":119,"client_ip":"192.168.65.1"}
+{"time":"2026-10-17T21:20:30.00091251Z","level":"INFO","msg":"request","method":"GET","route":"/products/:productId","path":"/products/393","status":200,"duration_ms":0.007,"bytes":121,"client_ip":"192.168.65.1"}
+{"time":"2026-10-17T21:20:30.000855885Z","level":"INFO","msg":"request","method":"GET","route":"/products/:productId","path":"/products/509","status":200,"duration_ms":0.018,"bytes":121,"client_ip":"192.168.65.1"}
+{"time":"2026-10-17T21:20:30.000982302Z","level":"INFO","msg":"request","method":"GET","route":"/products/:productId","path":"/products/66","status":200,"duration_ms":0.006,"bytes":120,"client_ip":"192.168.65.1"}
+{"time":"2026-10-17T21:20:30.001030302Z","level":"INFO","msg":"request","method":"GET","route":"/products/:productId","path":"/products/225","status":200,"duration_ms":0.005,"bytes":121,"client_ip":"192.168.65.1"}
+
+== Deliberate 500s (X-Simulate-Error) during the load: first 3 ==
+{"time":"2026-10-17T21:21:02.475711345Z","level":"INFO","msg":"request","method":"GET","route":"/products/:productId","path":"/products/1","status":500,"duration_ms":7.602,"bytes":107,"client_ip":"192.168.65.1"}
+{"time":"2026-10-17T21:21:02.577794928Z","level":"INFO","msg":"request","method":"GET","route":"/products/:productId","path":"/products/1","status":500,"duration_ms":0.101,"bytes":107,"client_ip":"192.168.65.1"}
+{"time":"2026-10-17T21:21:02.677672136Z","level":"INFO","msg":"request","method":"GET","route":"/products/:productId","path":"/products/1","status":500,"duration_ms":0.238,"bytes":107,"client_ip":"192.168.65.1"}

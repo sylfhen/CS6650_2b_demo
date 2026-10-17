@@ -1,0 +1,7 @@
+# Load every dashboard JSON file mounted into /var/lib/grafana/dashboards.
+apiVersion: 1
+providers:
+  - name: product-api
+    type: file
+    options:
+      path: /var/lib/grafana/dashboards

@@ -1,0 +1,32 @@
+# Locust master + workers for the HW5 Product API load tests.
+# Usage (from load-test/):
+#   TARGET_HOST=http://<ip>:8080 RUN_NAME=baseline docker compose up --scale worker=4
+# Optional: USER_CLASS=ProductHttpUser, WAIT_MODE=none, LOAD_SHAPE=stress
+services:
+  master:
+    image: locustio/locust
+    ports:
+      - "8089:8089"
+    volumes:
+      - ./:/mnt/locust
+    environment:
+      - WAIT_MODE
+      - LOAD_SHAPE
+      - SEED_PRODUCTS
+    command: >
+      -f /mnt/locust/locustfile.py --master
+      -H ${TARGET_HOST:?set TARGET_HOST, for example http://1.2.3.4:8080}
+      --csv /mnt/locust/results/${RUN_NAME:-run} --csv-full-history
+      ${USER_CLASS:-ProductFastUser}
+
+  worker:
+    image: locustio/locust
+    volumes:
+      - ./:/mnt/locust
+    environment:
+      - WAIT_MODE
+      - LOAD_SHAPE
+      - SEED_PRODUCTS
+    command: >
+      -f /mnt/locust/locustfile.py --worker --master-host master
+      ${USER_CLASS:-ProductFastUser}
