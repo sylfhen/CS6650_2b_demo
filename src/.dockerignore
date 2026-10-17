@@ -1,0 +1,6 @@
+product-service-local
+server.log
+*.log
+test-responses.sh
+screenshots/
+.DS_Store

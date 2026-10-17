@@ -2,3 +2,11 @@
 **.tfstate
 **.tfstate.*
 **/.terraform/
+# Saved Terraform plans can contain sensitive values
+*.tfplan
+**/tfplan
+
+# Local builds, logs, and macOS clutter
+product-service-local
+*.log
+.DS_Store

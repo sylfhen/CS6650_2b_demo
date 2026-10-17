@@ -25,7 +25,7 @@ data "aws_iam_role" "lab_role" {
 module "ecs" {
   source             = "./modules/ecs"
   service_name       = var.service_name
-  image              = "${module.ecr.repository_url}:latest"
+  image              = "${module.ecr.repository_url}@${docker_registry_image.app.sha256_digest}"
   container_port     = var.container_port
   subnet_ids         = module.network.subnet_ids
   security_group_ids = [module.network.security_group_id]
@@ -41,6 +41,9 @@ module "ecs" {
 resource "docker_image" "app" {
   # Use the URL from the ecr module, and tag it "latest"
   name = "${module.ecr.repository_url}:latest"
+  triggers = {
+    src_hash = local.src_hash
+  }
 
   build {
     # relative path from terraform/ → src/
@@ -52,4 +55,13 @@ resource "docker_image" "app" {
 resource "docker_registry_image" "app" {
   # this will push :latest → ECR
   name = docker_image.app.name
+  triggers = {
+    src_hash = local.src_hash
+  }
+}
+
+# Hash of every file under src/. When any source file changes, the hash
+# changes, which forces Terraform to rebuild and re-push the image.
+locals {
+  src_hash = sha1(join("", [for f in fileset("${path.module}/../src", "**") : filesha1("${path.module}/../src/${f}")]))
 }
